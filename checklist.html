@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>失敗しない！BBQ幹事の事前確認・見落としチェックリスト | BBQ AI</title>
+    <meta name="description" content="BBQ当日に「しまった！」を防ぐためのチェックリスト。アレルギー確認から、ゴミ捨て場・水場・トイレ・調理スペースなど、会場選びで見落としがちなポイントを網羅しています。">
+    <meta property="og:title" content="失敗しない！BBQ幹事の事前確認・見落としチェックリスト | BBQ AI">
+    <meta property="og:description" content="BBQ当日に「しまった！」を防ぐためのチェックリスト。アレルギー確認から会場の設備確認まで幹事が見落としがちなポイントを網羅。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ref-box.com/bbq-ai/checklist.html">
+    <meta property="og:site_name" content="BBQ AI">
+    <meta property="og:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="失敗しない！BBQ幹事の事前確認・見落としチェックリスト | BBQ AI">
+    <meta name="twitter:description" content="BBQ当日に「しまった！」を防ぐためのチェックリスト。アレルギー確認から会場の設備確認まで幹事が見落としがちなポイントを網羅。">
+    <meta name="twitter:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <link rel="canonical" href="https://ref-box.com/bbq-ai/checklist.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "失敗しない！BBQ幹事の事前確認・見落としチェックリスト",
+      "description": "BBQ当日に「しまった！」を防ぐためのチェックリスト。アレルギー確認から、ゴミ捨て場・水場・トイレ・調理スペースなど、会場選びで見落としがちなポイントを網羅しています。",
+      "url": "https://ref-box.com/bbq-ai/checklist.html",
+      "inLanguage": "ja",
+      "publisher": { "@type": "Organization", "name": "BBQ AI", "url": "https://ref-box.com/bbq-ai/" }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267979139542594"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* チェックリスト専用スタイル */
+        .checklist-section {
+            margin-bottom: 40px;
+        }
+
+        .checklist-group {
+            margin-bottom: 24px;
+        }
+
+        .checklist-group-title {
+            font-size: 1.1rem;
+            color: var(--brand);
+            border-bottom: 2px solid var(--brand-bg);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+            background: #fbfbfb;
+            padding: 16px;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border);
+            transition: border-color 0.2s, background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            border-color: var(--brand);
+            background: #fdfdfd;
+        }
+
+        /* カスタムチェックボックス */
+        .check-input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            background: #fff;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.2s;
+        }
+
+        .check-input:checked {
+            background-color: var(--brand);
+            border-color: var(--brand);
+        }
+
+        .check-input:checked::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2.5px 2.5px 0;
+            transform: rotate(45deg);
+        }
+
+        .check-content {
+            flex: 1;
+        }
+
+        .check-title {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .check-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        /* チェック時のスタイル変化 */
+        .check-input:checked ~ .check-content .check-title {
+            color: #94A3B8;
+            text-decoration: line-through;
+        }
+        
+        .check-input:checked ~ .check-content .check-desc {
+            color: #CBD5E1;
+        }
+
+        .checklist-intro {
+            background: #fff8f1;
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            margin-bottom: 32px;
+            border-radius: 0 var(--radius-card) var(--radius-card) 0;
+        }
+
+        .checklist-intro p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* 進行度バー */
+        .progress-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(4px);
+            padding: 16px 0;
+            margin-bottom: 24px;
+            z-index: 10;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--brand);
+            margin-bottom: 8px;
+        }
+        
+        .progress-bar-bg {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--brand);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <h1 class="site-title">BBQ AI</h1>
+        <p class="site-subtitle">失敗しない！事前確認・見落としチェックリスト</p>
+    </header>
+
+    <main class="static-page">
+        <a href="index.html" class="back-link">← トップに戻る</a>
+
+        <h1>幹事の事前確認・見落としチェックリスト</h1>
+
+        <div class="checklist-intro">
+            <p>BBQの成功は「事前の確認」にかかっています。「行ってから気づいた！」というトラブルを防ぐため、メンバーへの確認事項や会場設備のチェックポイントをまとめました。</p>
+        </div>
+
+        <!-- 進行度バー -->
+        <div class="progress-container">
+            <div class="progress-text">
+                <span>チェック進捗</span>
+                <span id="progressText">0 / 0</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="checklist-section">
+            <div class="checklist-group">
+                <h2 class="checklist-group-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    参加メンバーへの確認事項（1週間前まで）
+                </h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">食物アレルギー・宗教上の理由（ハラール等）の確認</div>
+                        <div class="check-desc">エビ、カニなどの甲殻類や、牛肉・豚肉がNGな人がいないか必ず全員にヒアリングしましょう。該当者がいる場合は、専用のトングや網の区画分けも検討します。</div>
+                    </div>
+                </label>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">交通手段（車・電車）とアルコールを飲む人の確認</div>
+                        <div class="check-desc">車で来る人（ハンドルキーパー）はノンアルコール飲料を多めに準備します。また、駐車場代の精算を割り勘に含めるかどうかも事前に決めておくとスムーズです。</div>
+                    </div>
+                </label>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">各自が持ってくるアイテムの担当決め</div>
+                        <div class="check-desc">クーラーボックス、折りたたみ椅子、Bluetoothスピーカーなど、誰が何を持ってくるかを明確にしてLINEのノートなどにまとめておきましょう。</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="checklist-group">
+                <h2 class="checklist-group-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    会場の設備確認（見落としがちなポイント）
+                </h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">ゴミ捨て場の有無と分別のルール</div>
+                        <div class="check-desc">「ゴミは持ち帰り」の会場も多いです。持ち帰りの場合は、誰の車に積むか、臭いが漏れない厚手のゴミ袋と縛るための紐があるかを確認しましょう。</div>
+                    </div>
+                </label>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">使用済みの「炭（灰）」の捨て場</div>
+                        <div class="check-desc">一般のゴミ箱には絶対に捨てられません。灰捨て場（炭壺）があるか確認し、ない場合は「火消し壺」か、完全に鎮火させて持ち帰るための厚手のアルミホイル等が必要です。</div>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">水場・水道への距離</div>
+                        <div class="check-desc">手洗いや網を洗うための水回り（炊事棟など）が遠いと非常に不便です。遠い場合は、ウォータージャグ（水タンク）やウェットティッシュを多めに用意しましょう。</div>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">まな板を置いて「野菜などを切るスペース」はあるか</div>
+                        <div class="check-desc">機材レンタルの場合、コンロやテーブルはあっても「調理台」がないことがよくあります。スペースがない場合は、自宅で事前に野菜を切ってジップロックに入れて持参するのが鉄則です。</div>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">トイレの清潔さと距離（女性がいる場合は特に重要）</div>
+                        <div class="check-desc">会場のトイレが仮設トイレのみだったり、トイレットペーパーが切れていることがあります。水に流せるティッシュを持参するようアナウンスしておくと親切です。</div>
+                    </div>
+                </label>
+
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">日陰の有無（タープ・テントの必要性）</div>
+                        <div class="check-desc">真夏の炎天下で日陰がないと熱中症のリスクが高まります。木陰が確保できない会場なら、タープテントの持ち込みやレンタルが必須です（風対策のペグも忘れずに）。</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="checklist-group">
+                <h2 class="checklist-group-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    買い出し・買い忘れチェック
+                </h2>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">着火剤・チャッカマン・軍手は足りているか</div>
+                        <div class="check-desc">炭があっても火が点かないという失敗がよくあります。着火剤は多めに。また、トングを握る手の火傷防止のため「耐熱性の高い軍手（または革手袋）」を買いましょう。</div>
+                    </div>
+                </label>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">調味料（塩コショウ・焼肉のタレ）の現地調達分</div>
+                        <div class="check-desc">肉を買うスーパーで一緒に買うのを忘れずに。味変用に「レモン汁」「ポン酢」「アウトドアスパイス（ほりにし等）」があると喜ばれます。</div>
+                    </div>
+                </label>
+                
+                <label class="checklist-item">
+                    <input type="checkbox" class="check-input">
+                    <div class="check-content">
+                        <div class="check-title">「氷」は十分な量を買ったか</div>
+                        <div class="check-desc">飲み物を冷やす用（クーラーボックス内）と、グラスに入れて飲む用（ロックアイス）は別々に計算して多めに買いましょう。夏場はすぐに溶けます。</div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </main>
+
+    <nav aria-label="関連ページ" style="text-align:center; padding: 32px 16px 0;">
+        <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:12px;">関連ページ</p>
+        <a href="schedule.html" class="btn btn-link" style="margin: 4px;">BBQ当日のスケジュール</a>
+        <a href="supermarkets.html" class="btn btn-link" style="margin: 4px;">スーパー別比較ガイド</a>
+        <a href="index.html" class="btn btn-link" style="margin: 4px;">買い物リストを作る</a>
+    </nav>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <nav class="footer-nav" aria-label="フッターナビゲーション">
+                <a href="about.html">運営者情報</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <p class="footer-copy">&copy; 2025 BBQ AI</p>
+        </div>
+    </footer>
+
+    <!-- チェックリストのスクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.check-input');
+            const progressText = document.getElementById('progressText');
+            const progressBar = document.getElementById('progressBar');
+            const total = checkboxes.length;
+            
+            // ローカルストレージにチェック状態を保存/復元するキー
+            const CHECKKEY = 'bbqChecklistProgress';
+
+            // 初期状態の復元
+            const savedProgress = localStorage.getItem(CHECKKEY);
+            if(savedProgress) {
+                try {
+                    const parsed = JSON.parse(savedProgress);
+                    checkboxes.forEach((cb, index) => {
+                        cb.checked = parsed[index] || false;
+                    });
+                } catch(e) {}
+            }
+
+            function updateProgress() {
+                const checkedCount = document.querySelectorAll('.check-input:checked').length;
+                progressText.textContent = `${checkedCount} / ${total}`;
+                
+                const percentage = (checkedCount / total) * 100;
+                progressBar.style.width = `${percentage}%`;
+                
+                if (percentage === 100) {
+                    progressBar.style.backgroundColor = '#10B981'; // 完了時は緑色に
+                } else {
+                    progressBar.style.backgroundColor = 'var(--brand)';
+                }
+
+                // 状態を保存
+                const states = Array.from(checkboxes).map(cb => cb.checked);
+                localStorage.setItem(CHECKKEY, JSON.stringify(states));
+            }
+
+            // 初期計算
+            updateProgress();
+
+            // イベントリスナー
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', updateProgress);
+            });
+        });
+    </script>
+</body>
+
+</html>

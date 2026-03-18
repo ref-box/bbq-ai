@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBQ AI - バーベキュー買い物リスト作成ツール</title>
+    <meta name="description" content="BBQに必要な食材や道具のリストを、人数やテーマに合わせて自動作成。肉の量・予算も自動計算。買い出しリストをLINEで共有できる無料Webアプリです。">
+    <meta property="og:title" content="BBQ AI - バーベキュー買い物リスト作成">
+    <meta property="og:description" content="人数とテーマを選ぶだけで、お肉や野菜の量・予算目安を自動計算。チェックリスト付きでLINEにも共有可能。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ref-box.com/bbq-ai/">
+    <meta property="og:site_name" content="BBQ AI">
+    <meta property="og:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="BBQ AI - バーベキュー買い物リスト作成">
+    <meta name="twitter:description" content="人数とテーマを選ぶだけで、お肉や野菜の量・予算目安を自動計算。チェックリスト付きでLINEにも共有可能。">
+    <meta name="twitter:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <link rel="canonical" href="https://ref-box.com/bbq-ai/">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BBQ AI",
+      "url": "https://ref-box.com/bbq-ai/",
+      "description": "BBQに必要な食材や道具のリストを、人数やテーマに合わせて自動作成。肉の量・予算も自動計算。買い出しリストをLINEで共有できる無料Webアプリです。",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "ja",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "BBQ AIでバーベキュー買い物リストを作る方法",
+      "description": "人数とテーマを入力するだけで、BBQの買い出しリストと予算を自動生成する手順",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "人数を入力", "text": "男性・女性・子供の人数を入力します。性別に応じてお肉の量が自動調整されます。" },
+        { "@type": "HowToStep", "position": 2, "name": "テーマを選択", "text": "定番・肉ガッツリ・海鮮・コスパ重視・お酒メインの5つから選べます。" },
+        { "@type": "HowToStep", "position": 3, "name": "リストを生成", "text": "ボタンを押すと、食材・飲み物・消耗品まで網羅したリストと予算の目安が生成されます。" },
+        { "@type": "HowToStep", "position": 4, "name": "共有する", "text": "リストをLINEで送るか、テキストとしてコピーできます。チェックリストとしても使えます。" }
+      ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267979139542594"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <h1 class="site-title">
+            BBQ AI
+        </h1>
+        <p class="site-subtitle">人数を入れるだけで、BBQの買い物リストを自動作成</p>
+    </header>
+
+    <main class="container">
+        <!-- 広告 -->
+        <div class="ad-unit" id="adTop">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-4267979139542594"
+                data-ad-slot="auto"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- 入力 -->
+        <section class="card" aria-label="設定入力">
+            <div class="card-title">メンバー人数</div>
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="men">男性</label>
+                    <input type="number" id="men" value="0" min="0">
+                </div>
+                <div class="input-box">
+                    <label for="women">女性</label>
+                    <input type="number" id="women" value="0" min="0">
+                </div>
+                <div class="input-box">
+                    <label for="kids">子供</label>
+                    <input type="number" id="kids" value="0" min="0">
+                </div>
+            </div>
+
+            <div class="card-title">テーマを選ぶ</div>
+            <select id="theme" aria-label="BBQのテーマ選択">
+                <option value="standard">定番バランス</option>
+                <option value="meat">お肉ガッツリ</option>
+                <option value="seafood">海鮮＆おしゃれ</option>
+                <option value="budget">学生向けコスパ</option>
+                <option value="drinking">お酒メイン</option>
+            </select>
+
+            <label class="checkbox-label" id="equipmentLabel">
+                <input type="checkbox" id="equipment">
+                <span>機材・炭もリストに入れる</span>
+            </label>
+        </section>
+
+        <button class="btn btn-primary" onclick="generateList()" id="generateBtn">
+            リストを生成する
+        </button>
+
+        <!-- 広告（リスト生成後・結果表示前） -->
+        <div class="ad-unit" id="adBeforeResult">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-4267979139542594"
+                data-ad-slot="auto"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- 結果 -->
+        <div id="resultArea">
+            <div class="budget-box">
+                <div class="budget-label">目安予算</div>
+                <div class="budget-price" id="budgetDisplay">@2,500円</div>
+                <div class="budget-note" id="totalBudgetDisplay">合計: 12,500円</div>
+            </div>
+
+            <div class="list-container" id="listContainer"></div>
+
+            <button class="btn btn-add" onclick="addNewRow(); saveListData();">
+                ＋ アイテムを追加
+            </button>
+
+            <div class="action-buttons">
+                <button class="btn btn-copy" onclick="copyText()">コピー</button>
+                <button class="btn btn-line" onclick="sendLine()">LINEで送る</button>
+            </div>
+
+            <!-- みんなで共有カード -->
+            <div onclick="shareListURL()" style="margin-top: 20px; margin-bottom: 16px; padding: 20px; background: var(--bg-card); border-radius: var(--radius); border: 2px solid var(--border); cursor: pointer; transition: all 0.2s ease; text-align: center;" onmouseover="this.style.borderColor='var(--brand)'" onmouseout="this.style.borderColor='var(--border)'">
+                <div style="font-size: 0.7rem; font-weight: 700; color: var(--brand); letter-spacing: 1px; margin-bottom: 8px;">みんなで買い出し</div>
+                <div style="font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 8px;">リストをURLで共有する</div>
+                <p style="font-size: 0.78rem; color: var(--text-sub); line-height: 1.6; margin: 0;">URLを送るだけで、メンバー全員のスマホから<br>同じリストにチェックを入れられます。<br>買い出しの分担に便利！</p>
+            </div>
+
+            <!-- アフィリエイト枠：機材レンタル（機材ありの時のみ表示） -->
+            <div id="rentalAd" style="display:none; margin: 24px 0; padding: 16px; background: #FFFDF0; border: 1px solid #FDE047; border-radius: var(--radius); text-align: center;">
+                <p style="font-size: 0.85rem; color: #854D0E; font-weight: 700; margin-bottom: 12px;">🏕 手ぶらでBBQを楽しみたいなら</p>
+                <a href="#" target="_blank" style="display: block; background: #EAB308; color: #FFF; padding: 12px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem;">
+                    人気のBBQ機材レンタルサービスを見る
+                </a>
+                <p style="font-size: 0.7rem; color: var(--text-sub); margin-top: 8px;">※ここにA8.net等のアフィリエイトリンクを設置</p>
+            </div>
+
+            <!-- アフィリエイト枠：おすすめアイテム -->
+            <div class="affiliate-items" style="margin: 32px 0 16px; padding-top: 24px; border-top: 1px dashed var(--border);">
+                <p style="font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 16px; text-align: center;">🔥 あると絶対盛り上がる！BBQおすすめアイテム</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <!-- Amazon/楽天アフィリエイト想定 -->
+                    <a href="#" target="_blank" style="display: block; text-align: center; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card);">
+                        <div style="height: 80px; background: #F1F5F9; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 0.8rem;">画像(黒瀬スパイス等)</div>
+                        <p style="font-size: 0.75rem; color: var(--brand); font-weight: 500; margin: 0;">魔法のアウトドアスパイス</p>
+                    </a>
+                    <a href="#" target="_blank" style="display: block; text-align: center; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card);">
+                        <div style="height: 80px; background: #F1F5F9; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; color: #94A3B8; font-size: 0.8rem;">画像(マシュマロ串)</div>
+                        <p style="font-size: 0.75rem; color: var(--brand); font-weight: 500; margin: 0;">伸びる！マシュマロ串</p>
+                    </a>
+                </div>
+                <p style="font-size: 0.7rem; color: var(--text-sub); text-align: center; margin-top: 12px;">※Amazonアソシエイト等のリンクを設置予定</p>
+            </div>
+
+            <button class="btn btn-reset" id="regenerateBtn" onclick="generateList()" style="display:none; margin-top: 24px;">
+                リストを再生成する
+            </button>
+
+            <button class="btn btn-reset" onclick="showResetConfirm()">
+                リストをリセット
+            </button>
+
+            <!-- 広告 -->
+            <div class="ad-unit ad-unit-large" id="adBottom">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-4267979139542594"
+                    data-ad-slot="auto"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div>
+
+        <!-- 使い方 -->
+        <section class="content-section" aria-label="使い方">
+            <div class="section-label">かんたん4ステップ</div>
+            <h2 class="section-title">使い方</h2>
+            <p class="section-desc">人数とテーマを選ぶだけで、<br>買い物リストが自動で完成します。</p>
+            <div class="steps-list">
+                <article class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                        <h3>人数を入力</h3>
+                        <p>男性・女性・子供の人数を入力します。性別に応じてお肉の量が自動調整されます。</p>
+                    </div>
+                </article>
+                <article class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                        <h3>テーマを選択</h3>
+                        <p>定番・肉ガッツリ・海鮮・コスパ重視・お酒メインの5つから選べます。</p>
+                    </div>
+                </article>
+                <article class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                        <h3>リストを生成</h3>
+                        <p>ボタンを押すと、食材・飲み物・消耗品まで網羅したリストと予算の目安が生成されます。</p>
+                    </div>
+                </article>
+                <article class="step-item">
+                    <div class="step-num">4</div>
+                    <div class="step-body">
+                        <h3>共有する</h3>
+                        <p>リストをLINEで送るか、テキストとしてコピーできます。チェックリストとしても使えます。</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 特徴 -->
+        <section class="content-section" aria-label="特徴">
+            <div class="section-label">無料で使える</div>
+            <h2 class="section-title">BBQ AIの特徴</h2>
+            <p class="section-desc">BBQの買い出しをもっとシンプルに</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">01</div>
+                    <div class="feature-title">ワンクリック作成</div>
+                    <p class="feature-desc">人数を入れてボタンを押すだけ。面倒な計算は不要です。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">02</div>
+                    <div class="feature-title">予算自動計算</div>
+                    <p class="feature-desc">1人あたりと合計金額の目安を自動で算出します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">03</div>
+                    <div class="feature-title">チェックリスト</div>
+                    <p class="feature-desc">買い出し中にチェックして買い忘れを防止できます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">04</div>
+                    <div class="feature-title">LINE共有</div>
+                    <p class="feature-desc">リストをワンタップでLINEグループに送れます。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 便利なツール集（グリッド） -->
+        <section class="content-section" aria-label="便利なツール一覧">
+            <div class="section-label">BBQをもっと快適に</div>
+            <h2 class="section-title">お役立ちツール＆ガイド</h2>
+            <p class="section-desc">準備から当日の片付けまで、幹事をサポートする機能が揃っています。</p>
+            
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; color: var(--text);">準備用</h3>
+            <div class="tools-grid">
+                <!-- チェックリスト -->
+                <a href="checklist.html" class="tool-card">
+                    <span class="tool-card-label">備えあれば憂いなし</span>
+                    <h3 class="tool-card-title">事前確認・見落としチェック</h3>
+                    <p class="tool-card-desc">アレルギー、水場やトイレ、ゴミのルールなど、「行ってから気づいた」を防ぐための幹事用リストです。</p>
+                    <span class="tool-card-action">チェックリストを見る</span>
+                </a>
+
+                <!-- スーパー比較 -->
+                <a href="supermarkets.html" class="tool-card">
+                    <span class="tool-card-label">買い出しガイド</span>
+                    <h3 class="tool-card-title">スーパー別 食材比較</h3>
+                    <p class="tool-card-desc">業務スーパー、コストコ、イオンなど、主要チェーンの品揃えと価格を比較しています。</p>
+                    <span class="tool-card-action">スーパー比較を見る</span>
+                </a>
+
+                <!-- 計算方法 -->
+                <a href="calculation.html" class="tool-card">
+                    <span class="tool-card-label">ロジック公開</span>
+                    <h3 class="tool-card-title">計算方法について</h3>
+                    <p class="tool-card-desc">お肉の量・予算はどのように算出されている？計算式やテーマ別パラメータを公開しています。</p>
+                    <span class="tool-card-action">計算方法を見る</span>
+                </a>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 0.5rem; font-size: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; color: var(--text);">当日用</h3>
+            <div class="tools-grid">
+                <!-- スケジュール -->
+                <a href="schedule.html" class="tool-card">
+                    <span class="tool-card-label">タイムテーブル</span>
+                    <h3 class="tool-card-title">当日のスケジュール指南</h3>
+                    <p class="tool-card-desc">集合から準備、片付け、解散まで。BBQ当日の流れと時短のコツを解説しています。</p>
+                    <span class="tool-card-action">スケジュールを見る</span>
+                </a>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 0.5rem; font-size: 1.2rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; color: var(--text);">終了後用</h3>
+            <div class="tools-grid">
+                <!-- 割り勘計算 -->
+                <a href="split.html" class="tool-card">
+                    <span class="tool-card-label">精算ツール</span>
+                    <h3 class="tool-card-title">スマート割り勘電卓</h3>
+                    <p class="tool-card-desc">お疲れ様でした！BBQの面倒な精算をサポート。傾斜配分にも対応し、LINEでの結果共有も可能です。</p>
+                    <span class="tool-card-action">割り勘を計算する</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 広告（フッター直前） -->
+        <div class="ad-unit" id="adBeforeFooter" style="margin-top: 32px;">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-4267979139542594"
+                data-ad-slot="auto"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </main>
+
+    <!-- 確認モーダル -->
+    <div class="modal-overlay" id="resetModal">
+        <div class="modal">
+            <p class="modal-message">リストをリセットしますか？</p>
+            <p class="modal-sub">作成したリストと設定がすべて初期状態に戻ります。</p>
+            <div class="modal-actions">
+                <button class="btn btn-modal-cancel" onclick="hideResetConfirm()">キャンセル</button>
+                <button class="btn btn-modal-confirm" onclick="executeReset()">リセットする</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <nav class="footer-nav" aria-label="フッターナビゲーション">
+                <a href="about.html">運営者情報</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="sponsor.html">協賛・広告掲載について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <p class="footer-copy">&copy; 2025 BBQ AI</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

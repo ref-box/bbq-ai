@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>傾斜対応！スマート割り勘電卓 | BBQ AI</title>
+    <meta name="description" content="BBQの面倒な割り勘をスムーズに。先輩・後輩などの傾斜配分対応。100円単位で丸めた金額と正確な金額をサクッと計算できる割り勘ツールです。">
+    <meta property="og:title" content="傾斜対応！スマート割り勘電卓 | BBQ AI">
+    <meta property="og:description" content="BBQの面倒な割り勘をスムーズに。先輩・後輩などの傾斜配分対応。100円単位で丸めた金額と正確な金額をサクッと計算。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ref-box.com/bbq-ai/split.html">
+    <meta property="og:site_name" content="BBQ AI">
+    <meta property="og:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="傾斜対応！スマート割り勘電卓 | BBQ AI">
+    <meta name="twitter:description" content="BBQの面倒な割り勘をスムーズに。先輩・後輩などの傾斜配分対応。100円単位で丸めた金額と正確な金額をサクッと計算。">
+    <meta name="twitter:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <link rel="canonical" href="https://ref-box.com/bbq-ai/split.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "スマート割り勘電卓",
+      "description": "BBQの面倒な割り勘をスムーズに。先輩・後輩などの傾斜配分対応。100円単位で丸めた金額と正確な金額をサクッと計算できる割り勘ツールです。",
+      "url": "https://ref-box.com/bbq-ai/split.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "ja",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267979139542594"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <h1 class="site-title">BBQ AI</h1>
+        <p class="site-subtitle">傾斜対応！スマート割り勘電卓</p>
+    </header>
+
+    <main class="static-page">
+        <a href="index.html" class="back-link">← トップに戻る</a>
+
+        <h1>割り勘を計算する</h1>
+        <p>BBQにかかった総額と人数を入力してください。<br>「多めに払う人」「無料にする人」など、グループごとに条件を追加できます。</p>
+
+        <!-- 入力フォーム -->
+        <div class="card form-card">
+            <div class="form-group">
+                <label for="totalAmount" class="form-label">支払い総額</label>
+                <div class="input-with-unit">
+                    <input type="number" id="totalAmount" class="form-input" placeholder="例: 15000" min="0" step="1">
+                    <span class="unit">円</span>
+                </div>
+            </div>
+
+            <!-- 基本グループ（デフォルト全員） -->
+            <div class="form-group split-group base-group">
+                <div class="split-group-header" style="margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <input type="text" id="baseGroupName" class="form-input" value="基本の割り勘" placeholder="グループ名" style="flex: 1; padding: 10px 12px; font-size: 0.95rem; font-weight: 700; color: var(--brand); border: 1.5px solid var(--border); border-radius: 6px; background-color: #fff;">
+                    </div>
+                    <p class="split-group-desc" style="font-size: 0.8rem; color: var(--text-sub); margin-top: 8px; line-height: 1.4;">※ 基準となる割り勘金額（1.0倍）を支払う人の人数を入力してください。</p>
+                </div>
+                <div class="split-inputs">
+                    <div class="input-with-unit">
+                        <input type="number" id="basePeople" class="form-input" value="1" min="1" step="1">
+                        <span class="unit">人</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 動的グループ追加エリア -->
+            <div id="dynamicGroupsArea"></div>
+
+            <!-- グループ追加ボタン -->
+            <div class="add-group-wrapper" style="text-align: center; margin-bottom: 24px;">
+                <button type="button" class="btn btn-outline" id="addGroupBtn" onclick="addGroup()" style="display: inline-flex; width: auto; font-size: 0.85rem; padding: 10px 20px; align-items: center; gap: 6px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    別の支払いグループを追加する
+                </button>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="calculateSplit()">計算する</button>
+        </div>
+
+        <!-- 結果表示エリア -->
+        <div id="splitResultArea" class="result-area" style="display: none; margin-top: 32px;">
+            <h2 class="result-title">割り勘結果</h2>
+
+            <div class="card result-card">
+                <h3 class="split-result-heading">100円単位（おすすめ）</h3>
+                <p class="split-result-desc">集金しやすいキリの良い金額です。端数は幹事調整分となります。</p>
+                <div class="split-box" id="roundedResultBox">
+                    <!-- JSで結果行を描画 -->
+                </div>
+                <div class="split-total-check">
+                    集金予定額: <span id="resRoundedTotal">0</span>円 （幹事調整: <span id="resRoundedDiff">0</span>円）
+                </div>
+
+                <!-- コピーボタン追加 -->
+                <button type="button" class="btn btn-outline" id="copyBtn" onclick="copySplitResult()" style="margin-top: 16px; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    結果をコピーしてLINEで送る
+                </button>
+            </div>
+
+            <div class="card result-card" style="margin-top: 24px;">
+                <h3 class="split-result-heading">正確な金額（1円単位）</h3>
+                <p class="split-result-desc">電子マネー送金などで1円単位までピッタリ割り勘する場合の金額です。</p>
+                <div class="split-box" id="exactResultBox">
+                    <!-- JSで結果行を描画 -->
+                </div>
+            </div>
+        </div>
+        <nav aria-label="関連ページ" style="text-align:center; padding: 32px 16px 0;">
+            <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:12px;">関連ページ</p>
+            <a href="index.html" class="btn btn-link" style="margin: 4px;">買い物リストを作る</a>
+            <a href="calculation.html" class="btn btn-link" style="margin: 4px;">計算方法について</a>
+            <a href="supermarkets.html" class="btn btn-link" style="margin: 4px;">スーパー別比較ガイド</a>
+        </nav>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <nav class="footer-nav" aria-label="フッターナビゲーション">
+                <a href="about.html">運営者情報</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <p class="footer-copy">&copy; 2025 BBQ AI</p>
+        </div>
+    </footer>
+
+    <!-- グループ行のテンプレート -->
+    <template id="groupTemplate">
+        <div class="form-group split-group custom-group">
+            <div class="split-group-header" style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <input type="text" class="form-input group-name" value="個別グループ" placeholder="グループ名" style="flex: 1; padding: 10px 12px; font-size: 0.95rem; font-weight: 700; color: var(--brand); border: 1.5px solid var(--border); border-radius: 6px; background-color: #fff;">
+                <button type="button" class="remove-btn" onclick="removeGroup(this)" style="background: none; border: none; color: #94A3B8; cursor: pointer; padding: 6px; display: flex; align-items: center; justify-content: center; border-radius: 4px; transition: all 0.2s;" aria-label="削除" onmouseover="this.style.backgroundColor='#f1f5f9'; this.style.color='#dc2626'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#94A3B8'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="split-inputs">
+                <div class="input-with-unit">
+                    <input type="number" class="form-input group-people" value="1" min="1" step="1">
+                    <span class="unit">人</span>
+                </div>
+                <select class="form-select ratio-select group-ratio">
+                    <option value="1.5">多めに払う（1.5倍）</option>
+                    <option value="1.2">少し多めに払う（1.2倍）</option>
+                    <option value="0.8">少し少なめに払う（0.8倍）</option>
+                    <option value="0.5">少なめに払う（0.5倍）</option>
+                    <option value="0">無料・払わない（0円）</option>
+                </select>
+            </div>
+        </div>
+    </template>
+
+    <!-- 割り勘用スクリプト -->
+    <script>
+        let groupIdCounter = 1;
+
+        // ページロード時の初期セット
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('bbqListMakerData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    const men = parseInt(data.men) || 0;
+                    const women = parseInt(data.women) || 0;
+                    let total = men + women;
+                    
+                    if (total > 0) {
+                        // 総人数を基本グループにセット（後から追加グループ分は計算時に自動で引き算される）
+                        document.getElementById('basePeople').value = total;
+                    }
+                } catch (e) {
+                    console.error("データの読み込みに失敗しました", e);
+                }
+            }
+        });
+
+        // グループ名（グループ N）を振り直す
+        function updateGroupNames() {
+            const customGroupElements = document.querySelectorAll('.custom-group');
+            let counter = 2; // 基本グループが1相当なので2から開始
+            customGroupElements.forEach(el => {
+                const nameInput = el.querySelector('.group-name');
+                // ユーザーが手動で変更していない（"グループ N"の形式のままの）場合のみ更新
+                if (nameInput.value.startsWith('グループ ')) {
+                    nameInput.value = `グループ ${counter}`;
+                }
+                counter++;
+            });
+            // 次に追加されるグループの番号を更新
+            groupIdCounter = counter - 1;
+        }
+
+        // グループを追加する
+        function addGroup() {
+            const template = document.getElementById('groupTemplate');
+            const clone = template.content.cloneNode(true);
+            
+            document.getElementById('dynamicGroupsArea').appendChild(clone);
+            updateGroupNames();
+        }
+
+        // グループを削除する
+        function removeGroup(btnElement) {
+            const groupDiv = btnElement.closest('.custom-group');
+            groupDiv.remove();
+            updateGroupNames();
+        }
+
+        // 計算ロジック
+        window.calculateSplit = function() {
+            const totalAmount = parseInt(document.getElementById('totalAmount').value);
+            const basePeopleSetting = parseInt(document.getElementById('basePeople').value) || 0;
+
+            if (isNaN(totalAmount) || totalAmount <= 0) {
+                alert("支払い総額を正しく入力してください。");
+                return;
+            }
+
+            // 追加されたグループの情報を収集
+            const customGroups = [];
+            let customPeopleTotal = 0;
+            const customGroupElements = document.querySelectorAll('.custom-group');
+            
+            customGroupElements.forEach(el => {
+                const name = el.querySelector('.group-name').value || "無名グループ";
+                const people = parseInt(el.querySelector('.group-people').value) || 0;
+                const ratio = parseFloat(el.querySelector('.group-ratio').value) || 0;
+                
+                if (people > 0) {
+                    customGroups.push({ name, people, ratio });
+                    customPeopleTotal += people;
+                }
+            });
+
+            // ベース人数と追加グループの人数の合計（足し算）
+            const actualBasePeople = basePeopleSetting;
+            const totalPeople = actualBasePeople + customPeopleTotal;
+
+            if (totalPeople === 0) {
+                alert("総人数が0人です。人数を正しく設定してください。");
+                return;
+            }
+
+            // 基準となる単位金額を算出するための重み付け合計
+            // (基本人数 * 1.0) + Σ(カスタム人数 * カスタム比率)
+            let totalRatioWeight = actualBasePeople * 1.0;
+            customGroups.forEach(g => {
+                totalRatioWeight += (g.people * g.ratio);
+            });
+            
+            if (totalRatioWeight === 0) {
+                alert("全員の支払いが0円になる設定です。条件を見直してください。");
+                return;
+            }
+
+            // 基準額（比率1.0の人の負担額）
+            const baseAmount = totalAmount / totalRatioWeight;
+
+            // 計算結果を格納する配列 { name, people, exact, rounded }
+            const results = [];
+
+            // 1. 基本グループの計算
+            if (actualBasePeople > 0) {
+                const baseName = document.getElementById('baseGroupName').value || "基本の割り勘";
+                let exact = Math.round(baseAmount * 1.0);
+                let rounded = Math.ceil(exact / 100) * 100;
+                results.push({ name: baseName, people: actualBasePeople, exact, rounded, isBase: true });
+            }
+
+            // 2. カスタムグループの計算
+            customGroups.forEach(g => {
+                let exact = Math.round(baseAmount * g.ratio);
+                let rounded = Math.ceil(exact / 100) * 100;
+                
+                // 無料設定の人は切り上げても0にする
+                if (g.ratio === 0) rounded = 0;
+                
+                results.push({ name: g.name, people: g.people, exact, rounded, isBase: false });
+            });
+
+            // 集金合計額から幹事の過不足を計算
+            let totalCollectedRounded = 0;
+            results.forEach(r => {
+                totalCollectedRounded += (r.rounded * r.people);
+            });
+            const diff = totalCollectedRounded - totalAmount;
+
+            // --- DOMの描画 ---
+            const roundedBox = document.getElementById('roundedResultBox');
+            const exactBox = document.getElementById('exactResultBox');
+            
+            roundedBox.innerHTML = '';
+            exactBox.innerHTML = '';
+
+            results.forEach(r => {
+                // HTML生成関数
+                const createRowHTML = (amount) => `
+                    <div class="split-item">
+                        <div class="split-label">${r.name} <span class="split-people-badge">${r.people}人</span></div>
+                        <div class="split-amount"><span>${amount.toLocaleString()}</span><span class="yen">円</span></div>
+                    </div>
+                `;
+                
+                roundedBox.innerHTML += createRowHTML(r.rounded);
+                exactBox.innerHTML += createRowHTML(r.exact);
+            });
+
+            // 調整額の描画
+            document.getElementById('resRoundedTotal').textContent = totalCollectedRounded.toLocaleString();
+            const diffEl = document.getElementById('resRoundedDiff');
+            if (diff > 0) {
+                diffEl.textContent = `+${diff.toLocaleString()}`;
+                diffEl.style.color = "var(--brand)";
+            } else if (diff < 0) {
+                diffEl.textContent = `${diff.toLocaleString()} (不足)`;
+                diffEl.style.color = "#dc2626"; // 赤
+            } else {
+                diffEl.textContent = "±0";
+                diffEl.style.color = "inherit";
+            }
+
+            // スムーズスクロール
+            const resultArea = document.getElementById('splitResultArea');
+            resultArea.style.display = 'block';
+            setTimeout(() => {
+                resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        };
+
+        // 結果をクリップボードにコピーする機能
+        window.copySplitResult = function() {
+            // 現在の表示内容からテキストを生成する
+            // calculation()が実行された際にresults配列が作られるので、DOMから読み取る
+            const totalAmount = document.getElementById('totalAmount').value;
+            const resTotal = document.getElementById('resRoundedTotal').textContent;
+            
+            let text = `【BBQ 割り勘結果】🍖\n`;
+            text += `総額: ${parseInt(totalAmount).toLocaleString()}円\n\n`;
+            
+            // 各グループの支払額を取得
+            const roundedBox = document.getElementById('roundedResultBox');
+            const items = roundedBox.querySelectorAll('.split-item');
+            
+            items.forEach(item => {
+                const labelText = item.querySelector('.split-label').textContent.trim(); // "グループ名 〇〇人" の形式
+                const amountText = item.querySelector('.split-amount span').textContent.trim();
+                text += `${labelText}: ${amountText}円/人\n`;
+            });
+
+            text += `\n(※集金合計: ${resTotal}円)\n\n`;
+            text += `▼BBQ幹事物忘れ防止アプリ\n`;
+            text += `https://ref-box.com/bbq-ai/split.html\n`;
+
+            // クリップボードへコピー
+            navigator.clipboard.writeText(text).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.innerHTML;
+                
+                // コピー完了のフィードバック
+                copyBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> コピーしました！`;
+                copyBtn.style.color = "#10B981";
+                copyBtn.style.borderColor = "#10B981";
+                copyBtn.style.backgroundColor = "#ecfdf5";
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.color = "";
+                    copyBtn.style.borderColor = "";
+                    copyBtn.style.backgroundColor = "";
+                }, 2000);
+            }).catch(err => {
+                console.error('コピーに失敗しました', err);
+                alert('コピーに失敗しました。');
+            });
+        };
+    </script>
+</body>
+
+</html>

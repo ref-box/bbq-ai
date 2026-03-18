@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算方法について | BBQ AI</title>
+    <meta name="description" content="BBQ AIの計算ロジックを公開。お肉の量の算出式、テーマ別のパラメータ、予算の計算方法、飲み物・消耗品の目安を解説しています。">
+    <meta property="og:title" content="計算方法について | BBQ AI">
+    <meta property="og:description" content="BBQ AIの計算ロジックを公開。お肉の量の算出式、テーマ別パラメータ、予算の計算方法、飲み物・消耗品の目安を解説。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ref-box.com/bbq-ai/calculation.html">
+    <meta property="og:site_name" content="BBQ AI">
+    <meta property="og:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="計算方法について | BBQ AI">
+    <meta name="twitter:description" content="BBQ AIの計算ロジックを公開。お肉の量の算出式、テーマ別パラメータ、予算の計算方法、飲み物・消耗品の目安を解説。">
+    <meta name="twitter:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <link rel="canonical" href="https://ref-box.com/bbq-ai/calculation.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "計算方法について",
+      "description": "BBQ AIの計算ロジックを公開。お肉の量の算出式、テーマ別のパラメータ、予算の計算方法、飲み物・消耗品の目安を解説しています。",
+      "url": "https://ref-box.com/bbq-ai/calculation.html",
+      "inLanguage": "ja",
+      "publisher": { "@type": "Organization", "name": "BBQ AI", "url": "https://ref-box.com/bbq-ai/" }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267979139542594"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <h1 class="site-title">BBQ AI</h1>
+        <p class="site-subtitle">人数を入れるだけで買い物リストを自動作成</p>
+    </header>
+
+    <main class="static-page">
+        <a href="index.html" class="back-link">← トップに戻る</a>
+
+        <h1>計算方法について</h1>
+        <p>BBQ AIがどのようにリストや予算を算出しているか、計算ロジックを公開しています。</p>
+
+        <div class="calc-section">
+            <h2 class="calc-heading">お肉の量の計算</h2>
+            <p class="calc-text">BBQで必要なお肉の量は「1人あたり300g」が一般的な目安です。BBQ AIでは、性別・年齢による食べる量の違いを考慮し、以下の係数で計算しています。</p>
+            <div class="calc-table">
+                <div class="calc-row calc-row-header">
+                    <span>区分</span><span>係数</span><span>基準量/人</span>
+                </div>
+                <div class="calc-row">
+                    <span>男性</span><span>× 1.0</span><span>300g</span>
+                </div>
+                <div class="calc-row">
+                    <span>女性</span><span>× 0.8</span><span>240g</span>
+                </div>
+                <div class="calc-row">
+                    <span>子供</span><span>× 0.6</span><span>180g</span>
+                </div>
+            </div>
+            <p class="calc-text">算出された総量を、<strong>牛肉 40%・豚肉 30%・鶏肉 30%</strong> の比率で自動配分しています。この比率は一般的なBBQのバランスを参考に設定しています。</p>
+        </div>
+
+        <div class="calc-section">
+            <h2 class="calc-heading">テーマ別の調整</h2>
+            <p class="calc-text">テーマによって1人あたりのお肉の基準量や追加食材が変わります。</p>
+            <div class="calc-table">
+                <div class="calc-row calc-row-header">
+                    <span>テーマ</span><span>肉量/人</span><span>特徴</span>
+                </div>
+                <div class="calc-row">
+                    <span>定番バランス</span><span>300g</span><span>標準的な構成</span>
+                </div>
+                <div class="calc-row">
+                    <span>お肉ガッツリ</span><span>450g</span><span>野菜少なめ</span>
+                </div>
+                <div class="calc-row">
+                    <span>海鮮</span><span>200g</span><span>海鮮食材を追加</span>
+                </div>
+                <div class="calc-row">
+                    <span>コスパ重視</span><span>250g</span><span>焼きそば等を追加</span>
+                </div>
+                <div class="calc-row">
+                    <span>お酒メイン</span><span>200g</span><span>おつまみ中心</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-section">
+            <h2 class="calc-heading">予算の算出方法</h2>
+            <p class="calc-text">予算は以下の単価目安をもとに合計額を計算し、1人あたりの金額は100円単位で切り上げています。</p>
+            <div class="calc-table">
+                <div class="calc-row calc-row-header">
+                    <span>項目</span><span>単価目安</span>
+                </div>
+                <div class="calc-row">
+                    <span>牛肉 100gあたり</span><span>350円</span>
+                </div>
+                <div class="calc-row">
+                    <span>豚肉 100gあたり</span><span>200円</span>
+                </div>
+                <div class="calc-row">
+                    <span>鶏肉 100gあたり</span><span>130円</span>
+                </div>
+                <div class="calc-row">
+                    <span>ソーセージ 1本</span><span>60円</span>
+                </div>
+                <div class="calc-row">
+                    <span>野菜セット</span><span>500円 / 3人</span>
+                </div>
+                <div class="calc-row">
+                    <span>飲み物 1Lあたり</span><span>150円</span>
+                </div>
+                <div class="calc-row">
+                    <span>主食（1人あたり）</span><span>50円</span>
+                </div>
+                <div class="calc-row">
+                    <span>海鮮追加（1人あたり）</span><span>400円</span>
+                </div>
+                <div class="calc-row">
+                    <span>お酒追加（1人あたり）</span><span>300円</span>
+                </div>
+                <div class="calc-row">
+                    <span>機材一式</span><span>1,500円</span>
+                </div>
+            </div>
+            <p class="calc-text">これらの単価はスーパーマーケットでの平均的な価格を参考にした目安です。地域や店舗、季節によって実際の価格は異なります。</p>
+        </div>
+
+        <div class="calc-section">
+            <h2 class="calc-heading">飲み物・消耗品の目安</h2>
+            <p class="calc-text">飲み物は<strong>1人あたり2L</strong>を基準に計算しています。氷は<strong>3人あたり1kg</strong>、炭は<strong>1人あたり0.8kg（最低3kg）</strong>として算出しています。これらの数値はアウトドア情報サイトや実際のBBQ経験をもとに設定しています。</p>
+        </div>
+        <nav aria-label="関連ページ" style="text-align:center; padding: 32px 16px 0;">
+            <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:12px;">関連ページ</p>
+            <a href="index.html" class="btn btn-link" style="margin: 4px;">買い物リストを作る</a>
+            <a href="split.html" class="btn btn-link" style="margin: 4px;">割り勘を計算する</a>
+            <a href="supermarkets.html" class="btn btn-link" style="margin: 4px;">スーパー別比較ガイド</a>
+        </nav>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <nav class="footer-nav" aria-label="フッターナビゲーション">
+                <a href="about.html">運営者情報</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <p class="footer-copy">&copy; 2025 BBQ AI</p>
+        </div>
+    </footer>
+</body>
+
+</html>

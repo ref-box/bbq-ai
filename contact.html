@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ | BBQ AI</title>
+    <meta name="description" content="BBQ AIへのお問い合わせページ。ご質問・ご要望・不具合報告などお気軽にご連絡ください。">
+    <meta property="og:title" content="お問い合わせ | BBQ AI">
+    <meta property="og:description" content="BBQ AIへのお問い合わせページ。ご質問・ご要望・不具合報告などお気軽にご連絡ください。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ref-box.com/bbq-ai/contact.html">
+    <meta property="og:site_name" content="BBQ AI">
+    <meta property="og:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="お問い合わせ | BBQ AI">
+    <meta name="twitter:description" content="BBQ AIへのお問い合わせページ。ご質問・ご要望・不具合報告などお気軽にご連絡ください。">
+    <meta name="twitter:image" content="https://ref-box.com/bbq-ai/ogp.png">
+    <link rel="canonical" href="https://ref-box.com/bbq-ai/contact.html">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4267979139542594"
+        crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <h1 class="site-title">BBQ AI</h1>
+        <p class="site-subtitle">人数を入れるだけで買い物リストを自動作成</p>
+    </header>
+
+    <main class="static-page">
+        <a href="index.html" class="back-link">← トップに戻る</a>
+
+        <h1>お問い合わせ</h1>
+
+        <p>BBQ AI に関するご質問、ご要望、不具合報告などがございましたら、以下のフォームよりお気軽にお問い合わせください。</p>
+        <p>通常、2〜3営業日以内にご返信いたします。</p>
+
+        <form class="contact-form" id="contactForm">
+            <div>
+                <label for="contactName">お名前</label>
+                <input type="text" id="contactName" name="name" placeholder="例: 山田太郎" required>
+            </div>
+            <div>
+                <label for="contactEmail">メールアドレス</label>
+                <input type="email" id="contactEmail" name="email" placeholder="例: example@email.com" required>
+            </div>
+            <div>
+                <label for="contactCategory">お問い合わせ種別</label>
+                <select id="contactCategory" name="category">
+                    <option value="question">ご質問</option>
+                    <option value="request">ご要望・機能リクエスト</option>
+                    <option value="bug">不具合報告</option>
+                    <option value="sponsor">協賛・広告掲載について</option>
+                    <option value="other">その他</option>
+                </select>
+            </div>
+            <div>
+                <label for="contactMessage">お問い合わせ内容</label>
+                <textarea id="contactMessage" name="message" placeholder="お問い合わせ内容を入力してください" required></textarea>
+            </div>
+            <button type="submit" id="submitBtn" class="btn btn-primary" style="width:auto;padding:12px 40px;">送信する</button>
+        </form>
+
+        <!-- 送信後に表示するメッセージ（初期は非表示） -->
+        <div id="submitResult" style="display:none; text-align:center; padding: 40px 20px;">
+            <div style="font-size: 2.5rem; margin-bottom: 16px;">✓</div>
+            <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--text);">お問い合わせを送信しました</h2>
+            <p style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.7;">内容を確認次第、順次ご返信いたします。<br>しばらくお待ちください。</p>
+            <a href="index.html" class="btn btn-link" style="margin-top: 24px; display: inline-block;">トップページに戻る</a>
+        </div>
+
+        <!-- エラーメッセージ（初期は非表示） -->
+        <p id="errorMessage" style="display:none; margin-top: 12px; padding: 12px 16px; background: #FEF2F2; color: #DC2626; border-radius: 12px; font-size: 0.85rem; text-align: center;"></p>
+
+        <script>
+            // GASのウェブアプリのURL
+            const GAS_URL = "https://script.google.com/macros/s/AKfycbxl-17_9DrzyMVJJEEe2XliJlGujHPlUkMPojWBIqe53elYnZl41nby755nAwq9w9UR/exec";
+
+            document.getElementById('contactForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                const submitBtn = document.getElementById('submitBtn');
+                const originalText = submitBtn.textContent;
+                const errorMsg = document.getElementById('errorMessage');
+                
+                // エラーメッセージをリセット
+                errorMsg.style.display = 'none';
+                errorMsg.textContent = '';
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = '送信中...';
+
+                const formData = new FormData(this);
+
+                fetch(GAS_URL, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // フォームを非表示にして完了メッセージを表示
+                        document.getElementById('contactForm').style.display = 'none';
+                        document.getElementById('submitResult').style.display = 'block';
+                        // 注意書きも非表示に
+                        const note = document.querySelector('.static-page > p[style*="color: #888"]');
+                        if (note) note.style.display = 'none';
+                    } else {
+                        errorMsg.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+                        errorMsg.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    errorMsg.textContent = '送信に失敗しました。通信環境をお確かめの上、再度お試しください。';
+                    errorMsg.style.display = 'block';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                });
+            });
+        </script>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <nav class="footer-nav" aria-label="フッターナビゲーション">
+                <a href="about.html">運営者情報</a>
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="sponsor.html">協賛・広告掲載について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </nav>
+            <p class="footer-copy">&copy; 2025 BBQ AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
